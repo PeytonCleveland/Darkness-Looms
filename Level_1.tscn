@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Dungeon_1_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
 
 [node name="Scene" type="Node2D"]
 
@@ -16,3 +17,6 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -1, 72, 0, 1310736, 67, 0, 1310737, 68, 0, 1376296, 67, 0, 1376297, 68, 0, 2555924, 67, 0, 2555925, 68, 0, 2621491, 67, 0, 2621492, 68, 0, 2949197, 47, 0, 3014733, 57, 0 )
+
+[node name="Hero" parent="." instance=ExtResource( 2 )]
+position = Vector2( 576.827, 473.802 )
