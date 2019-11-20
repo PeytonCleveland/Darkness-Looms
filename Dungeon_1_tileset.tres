@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=28 format=2]
+[gd_resource type="TileSet" load_steps=32 format=2]
 
 [ext_resource path="res://Assets/Dungeon_Tileset.png" type="Texture" id=1]
 
@@ -8,8 +8,14 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 8, 0, 8 )
 
+[sub_resource type="OccluderPolygon2D" id=27]
+polygon = PoolVector2Array( 8, 0, 16, 0, 16, 16, 8, 16 )
+
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="OccluderPolygon2D" id=28]
+polygon = PoolVector2Array( 0, 0, 8, 0, 8, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -26,8 +32,14 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 8, 0, 8 )
 
+[sub_resource type="OccluderPolygon2D" id=29]
+polygon = PoolVector2Array( 8, 0, 16, 0, 16, 16, 8, 16 )
+
 [sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="OccluderPolygon2D" id=30]
+polygon = PoolVector2Array( 0, 0, 8, 0, 8, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -224,6 +236,7 @@ points = PoolVector2Array( 0, 0, 16, 4, 16, 12, 0, 12 )
 10/region = Rect2( 0, 16, 16, 16 )
 10/tile_mode = 0
 10/occluder_offset = Vector2( 0, 0 )
+10/occluder = SubResource( 27 )
 10/navigation_offset = Vector2( 0, 0 )
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
@@ -280,6 +293,7 @@ points = PoolVector2Array( 0, 0, 16, 4, 16, 12, 0, 12 )
 15/region = Rect2( 80, 16, 16, 16 )
 15/tile_mode = 0
 15/occluder_offset = Vector2( 0, 0 )
+15/occluder = SubResource( 28 )
 15/navigation_offset = Vector2( 0, 0 )
 15/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
@@ -448,6 +462,7 @@ points = PoolVector2Array( 0, 0, 16, 4, 16, 12, 0, 12 )
 30/region = Rect2( 0, 48, 16, 16 )
 30/tile_mode = 0
 30/occluder_offset = Vector2( 0, 0 )
+30/occluder = SubResource( 29 )
 30/navigation_offset = Vector2( 0, 0 )
 30/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
@@ -504,6 +519,7 @@ points = PoolVector2Array( 0, 0, 16, 4, 16, 12, 0, 12 )
 35/region = Rect2( 80, 48, 16, 16 )
 35/tile_mode = 0
 35/occluder_offset = Vector2( 0, 0 )
+35/occluder = SubResource( 30 )
 35/navigation_offset = Vector2( 0, 0 )
 35/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
