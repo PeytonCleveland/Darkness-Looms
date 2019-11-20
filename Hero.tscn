@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/knight_f_idle_anim_f0.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.31043, 7.83692 )
+extents = Vector2( 3.87446, 6.14266 )
 
 [node name="Hero" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -13,14 +13,19 @@ health = 100
 cooldown = 0.25
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 244.587, 95.3602 )
+position = Vector2( 0.295084, -5.06927 )
+scale = Vector2( 0.76789, 0.794859 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 245.318, 100.86 )
+position = Vector2( 0.704756, -0.359043 )
 shape = SubResource( 1 )
 
 [node name="Cooldown" type="Timer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.2, 0.2 )
