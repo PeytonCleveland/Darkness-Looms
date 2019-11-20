@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Dungeon_1_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/gradient.jpg" type="Texture" id=3]
 
 [node name="Scene" type="Node2D"]
 
@@ -21,3 +22,10 @@ tile_data = PoolIntArray( -1, 72, 0, 1310736, 67, 0, 1310737, 68, 0, 1376296, 67
 [node name="Hero" parent="." instance=ExtResource( 2 )]
 position = Vector2( 654.863, 266.24 )
 speed = 75
+
+[node name="Light2D" type="Light2D" parent="Hero"]
+texture = ExtResource( 3 )
+texture_scale = 0.7
+color = Color( 0.894118, 0.564706, 0.176471, 1 )
+energy = 3.14
+mode = 3
