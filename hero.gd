@@ -12,9 +12,16 @@ var sprint_val = 100
 var can_shoot = true
 var can_sprint = true
 var alive = true
+var light = null
+var orig_light_energy = 0
+var rng = RandomNumberGenerator.new()
 
 func _ready():
-	pass
+	# Save reference to light node for future use
+	light = get_node("Light2D")
+	orig_light_energy = light.energy
+	# Initialize random number generator
+	rng.randomize()
 	
 func control(delta):
 	velocity = Vector2()
@@ -46,7 +53,13 @@ func control(delta):
 		can_sprint = true
 
 func _physics_process(delta):
+	# Make the light flicker like a flame... sort of
+	light.offset = Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
+	light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 2), orig_light_energy / 2)
+	#light.color = Color(rng.randf(), rng.randf(), rng.randf()) # psychadelic
+
 	if not alive:
 		return
+
 	control(delta)
 	move_and_slide(velocity)
