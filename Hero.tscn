@@ -50,7 +50,7 @@ health = 100
 position = Vector2( -0.148552, 3.2186 )
 frames = SubResource( 1 )
 animation = "run_left"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
