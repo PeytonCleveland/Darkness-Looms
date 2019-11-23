@@ -24,10 +24,10 @@ position = Vector2( 654.863, 266.24 )
 speed = 75
 
 [node name="Light2D" type="Light2D" parent="Hero"]
-position = Vector2( 0.166046, -0.0249329 )
+position = Vector2( -0.624969, 9.46698 )
 scale = Vector2( 1.52071, 1.34482 )
 texture = ExtResource( 3 )
-texture_scale = 0.7
+texture_scale = 0.45
 color = Color( 0.894118, 0.564706, 0.176471, 1 )
-energy = 5.0
+energy = 3.31
 shadow_enabled = true
