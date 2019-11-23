@@ -8,7 +8,8 @@ export (int) var health
 
 var velocity = Vector2()
 var multiplier = 1.0
-var sprint_val = 100
+var normalizer = 5
+var sprint_val = 50
 var can_shoot = true
 var can_sprint = true
 var alive = true
@@ -53,9 +54,13 @@ func control(delta):
 		can_sprint = true
 
 func _physics_process(delta):
+	normalizer -= 1
+	if(normalizer == 0):
 	# Make the light flicker like a flame... sort of
-	light.offset = Vector2(rng.randf_range(-10, 10), rng.randf_range(-10, 10))
-	light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 2), orig_light_energy / 2)
+		light.offset = Vector2(rng.randf_range(-5, 5), rng.randf_range(-5, 5))
+		light.texture_scale = rng.randf_range(1.2, 1.3)
+		light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 4), orig_light_energy / 4)
+		normalizer = 7
 	#light.color = Color(rng.randf(), rng.randf(), rng.randf()) # psychadelic
 
 	if not alive:

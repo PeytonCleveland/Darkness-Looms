@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://hero.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_0.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_1.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_2.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_3.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_f_idle_anim_f0.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_f_idle_anim_f0.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_0.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Darkness-Looms-Assets/wizzard_run_left_3.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wizzart_m_run_anim_f0.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wizzart_m_run_anim_f1.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wizzart_m_run_anim_f2.png" type="Texture" id=9]
@@ -15,17 +15,17 @@
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wizzart_f_run_anim_f2.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wizzart_f_run_anim_f3.png" type="Texture" id=14]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "run_left",
-"speed": 11.0
-}, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "idle",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "run_left",
+"speed": 11.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
@@ -38,8 +38,8 @@ animations = [ {
 "speed": 11.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.59764, 8.27188 )
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5.59764, 5.27114 )
 
 [node name="Hero" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -47,17 +47,19 @@ speed = 150
 health = 100
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 2 )
+position = Vector2( -0.148552, 3.2186 )
+frames = SubResource( 1 )
 animation = "run_left"
 frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.681719, 5.78105 )
-shape = SubResource( 1 )
+position = Vector2( 0.704752, 11.624 )
+shape = SubResource( 2 )
 
 [node name="SprintCooldown" type="Timer" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, 2.3273 )
 current = true
 zoom = Vector2( 0.2, 0.2 )
