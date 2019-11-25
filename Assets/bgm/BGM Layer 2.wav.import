@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BGM Layer 2.wav-5e0a21fe5e50a5b6b514234c7a422f4d.sample"
+
+[deps]
+
+source_file="res://Assets/bgm/BGM Layer 2.wav"
+dest_files=[ "res://.import/BGM Layer 2.wav-5e0a21fe5e50a5b6b514234c7a422f4d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
