@@ -16,32 +16,21 @@ var alive = true
 var light = null
 var orig_light_energy = 0
 var rng = RandomNumberGenerator.new()
-var music_layers_total = 6
-var music_layers_active = 2
+
 
 func _ready():
-	# Save reference to light node for future use
+	# Grab light info for future use
 	light = get_node("Light2D")
+	#light.energy = ((music_player.music_layers_active - 1) * 3) + 1
 	orig_light_energy = light.energy
+
 	# Initialize random number generator
 	rng.randomize()
-	music_set()
 	
 func control(delta):
 	# Leap of faith
 	if Input.is_action_just_pressed('teleport'):
 		leap_of_faith()
-		
-	# Debug music
-	if Input.is_action_just_pressed('music_build'):
-		if (music_layers_active < music_layers_total):
-			music_layers_active += 1
-		music_set()
-			
-	if Input.is_action_just_pressed('music_unbuild'):
-		if (music_layers_active > 1):
-			music_layers_active -= 1
-		music_set()
 		
 	# Movement
 	velocity = Vector2()
@@ -78,7 +67,7 @@ func _physics_process(delta):
 	# Make the light flicker like a flame... sort of
 		light.offset = Vector2(rng.randf_range(-5, 5), rng.randf_range(-5, 5))
 		light.texture_scale = rng.randf_range(1.2, 1.3)
-		light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 4), orig_light_energy / 4)
+		#light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 4), orig_light_energy / 4)
 		normalizer = 7
 	#light.color = Color(rng.randf(), rng.randf(), rng.randf()) # psychadelic
 
@@ -98,7 +87,7 @@ func leap_of_faith():
 	var max_x = tilemap.get_used_rect().position.x + tilemap.get_used_rect().size.x
 	var max_y = tilemap.get_used_rect().position.y + tilemap.get_used_rect().size.y
 	
-	#print(str(min_x) + ", " + str(min_y) + " to " + str(max_x) + ", " + str(max_y))
+	#print_debug(str(min_x) + ", " + str(min_y) + " to " + str(max_x) + ", " + str(max_y))
 	
 	var good_location = false;
 	var new_x = 0 
@@ -116,25 +105,11 @@ func leap_of_faith():
 		if (tilemap.get_cell(new_x, new_y) == 60):
 			good_location = true;
 		
-	#print(str(new_x) + ", " + str(new_y))
+	#print_debug(str(new_x) + ", " + str(new_y))
 		
 	# Move the player to the new location in the center of the selected tile
 	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)	    
 	
 	pass
 	
-# Turn background music layers on/off based on how many layers should be active
-func music_set():
-	print("Layers: " + str(music_layers_total) + " Active: " + str(music_layers_active))
-	
-	for layer in range(1, music_layers_active + 1):
-		print("Play layer " + str(layer))
-		var audiostream = get_node("../BGM" + str(layer))
-		audiostream.volume_db = -30;
-		
-	for layer in range(music_layers_active + 1, music_layers_total + 1):
-		print("Don't play layer " + str(layer))
-		var audiostream = get_node("../BGM" + str(layer))
-		audiostream.volume_db = -80;
-		
-	pass
+
