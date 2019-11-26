@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Level0.gd" type="Script" id=1]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=2]
@@ -8,10 +8,6 @@
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wall_mid.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/doors_leaf_closed.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wall_top_mid.png" type="Texture" id=8]
-[ext_resource path="res://Assets/bgm/BGM Layer 1.wav" type="AudioStream" id=9]
-[ext_resource path="res://Assets/bgm/BGM Layer 3.wav" type="AudioStream" id=10]
-[ext_resource path="res://Assets/bgm/BGM Layer 5.wav" type="AudioStream" id=11]
-[ext_resource path="res://Assets/bgm/BGM Layer 6.wav" type="AudioStream" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 14, 16, 14, 16, 16, 0, 16 )
@@ -112,25 +108,5 @@ curve = SubResource( 4 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2( 1046.68, -201.576 )
-rotation = 0.0377171
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-volume_db = -23.168
-autoplay = true
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
-volume_db = -25.685
-autoplay = true
-
-[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-volume_db = -21.909
-autoplay = true
-
-[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
-volume_db = -30.47
-autoplay = true
+rotation = 0.037721
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
