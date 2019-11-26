@@ -16,6 +16,8 @@ var alive = true
 var light = null
 var orig_light_energy = 0
 var rng = RandomNumberGenerator.new()
+var slomo = false
+var slomo_spacer = 0
 
 
 func _ready():
@@ -28,6 +30,17 @@ func _ready():
 	rng.randomize()
 	
 func control(delta):
+	#slo-mo
+	if(slomo_spacer < 9):
+		slomo_spacer += 1
+	if (Input.is_action_pressed('slo-mo') && slomo_spacer == 9):
+		slomo_spacer = 0
+		if (!slomo):
+			Engine.time_scale = 0.1
+			slomo = true
+		else:
+			Engine.time_scale = 1
+			slomo = false
 	# Leap of faith
 	if Input.is_action_just_pressed('teleport'):
 		leap_of_faith()
@@ -63,7 +76,7 @@ func control(delta):
 
 func _physics_process(delta):
 	normalizer -= 1
-	if(normalizer == 0):
+	if(normalizer == 0 && !slomo):
 	# Make the light flicker like a flame... sort of
 		light.offset = Vector2(rng.randf_range(-5, 5), rng.randf_range(-5, 5))
 		light.texture_scale = rng.randf_range(1.2, 1.3)
