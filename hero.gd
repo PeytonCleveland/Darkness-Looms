@@ -25,6 +25,11 @@ func _ready():
 	rng.randomize()
 	
 func control(delta):
+	# Leap of faith
+	if Input.is_action_just_pressed('teleport'):
+		leap_of_faith()
+		
+	# Movement
 	velocity = Vector2()
 	multiplier = 1.0
 	if Input.is_action_pressed('sprint'):
@@ -68,3 +73,38 @@ func _physics_process(delta):
 
 	control(delta)
 	move_and_slide(velocity)
+
+# Move the player to a random but valid spot on the map.
+func leap_of_faith():
+	
+	# Find the extents of the tilemap
+	var tilemap = get_node("../TileMap")
+	var min_x = tilemap.get_used_rect().position.x
+	var min_y = tilemap.get_used_rect().position.y
+	var max_x = tilemap.get_used_rect().position.x + tilemap.get_used_rect().size.x
+	var max_y = tilemap.get_used_rect().position.y + tilemap.get_used_rect().size.y
+	
+	#print(str(min_x) + ", " + str(min_y) + " to " + str(max_x) + ", " + str(max_y))
+	
+	var good_location = false;
+	var new_x = 0 
+	var new_y = 0
+	
+	# While we haven't found a good landing location, keep looking for one.
+	while (!good_location):
+		        
+		# Pick random location on the tile map.
+		new_x = rng.randi_range(min_x, max_x) 
+		new_y = rng.randi_range(min_y, max_y)
+		                
+		# Determine if the location is good by checking if the tile type is a floor.
+		# TODO: don't rely on hard-coded tile types to determine what is a suitable landing location
+		if (tilemap.get_cell(new_x, new_y) == 60):
+			good_location = true;
+		
+	#print(str(new_x) + ", " + str(new_y))
+		
+	# Move the player to the new location in the center of the selected tile
+	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)
+	                
+	pass
