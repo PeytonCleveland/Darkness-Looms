@@ -1,16 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://new_dungeon_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Hero.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/gradient.jpg" type="Texture" id=3]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/wall_mid.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Darkness-Looms-Assets/doors_leaf_closed.png" type="Texture" id=5]
-[ext_resource path="res://Assets/bgm/BGM Layer 1.wav" type="AudioStream" id=6]
-[ext_resource path="res://Assets/bgm/BGM Layer 2.wav" type="AudioStream" id=7]
-[ext_resource path="res://Assets/bgm/BGM Layer 3.wav" type="AudioStream" id=8]
-[ext_resource path="res://Assets/bgm/BGM Layer 4.wav" type="AudioStream" id=9]
-[ext_resource path="res://Assets/bgm/BGM Layer 5.wav" type="AudioStream" id=10]
-[ext_resource path="res://Assets/bgm/BGM Layer 6.wav" type="AudioStream" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 14, 16, 14, 16, 16, 0, 16 )
@@ -75,7 +69,7 @@ position = Vector2( -1.57361, 11.4645 )
 texture = ExtResource( 3 )
 texture_scale = 1.25
 color = Color( 0.521569, 0.34902, 0.0196078, 1 )
-energy = 2.45
+energy = 4.09
 mode = 2
 
 [node name="TileMap3" type="TileMap" parent="."]
@@ -83,33 +77,3 @@ tile_set = SubResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 327721, 0, 0, 327722, 0, 0, 327723, 0, 0, 327724, 0, 0, 327725, 0, 0, 327726, 0, 0, 327727, 0, 0, 327728, 0, 0, 327729, 0, 0, 327730, 0, 0, 327733, 0, 0, 327734, 0, 0, 327735, 0, 0, 327736, 0, 0, 327737, 0, 0, 327738, 0, 0, 327739, 0, 0, 327740, 0, 0, 327741, 0, 0, 327742, 0, 0, 327743, 0, 0, 524339, 1, 0, 655409, 45, 0, 655410, 33, 0, 655413, 32, 0, 720945, 43, 0, 786481, 43, 0, 852017, 43, 0, 917553, 43, 0, 983089, 43, 0 )
-
-[node name="BGM1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-volume_db = -30.0
-autoplay = true
-
-[node name="BGM2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-volume_db = -30.0
-autoplay = true
-
-[node name="BGM3" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-volume_db = -30.0
-autoplay = true
-
-[node name="BGM4" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-volume_db = -30.0
-autoplay = true
-
-[node name="BGM5" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
-volume_db = -30.0
-autoplay = true
-
-[node name="BGM6" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-volume_db = -30.0
-autoplay = true

@@ -19,6 +19,10 @@ config/name="Darkness-Looms"
 run/main_scene="res://Level_1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+MusicPlayer="*res://MusicPlayer.gd"
+
 [display]
 
 window/size/width=1920
