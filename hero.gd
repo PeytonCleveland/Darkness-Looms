@@ -16,6 +16,8 @@ var alive = true
 var light = null
 var orig_light_energy = 0
 var rng = RandomNumberGenerator.new()
+var music_layers_total = 6
+var music_layers_active = 2
 
 func _ready():
 	# Save reference to light node for future use
@@ -23,11 +25,23 @@ func _ready():
 	orig_light_energy = light.energy
 	# Initialize random number generator
 	rng.randomize()
+	music_set()
 	
 func control(delta):
 	# Leap of faith
 	if Input.is_action_just_pressed('teleport'):
 		leap_of_faith()
+		
+	# Debug music
+	if Input.is_action_just_pressed('music_build'):
+		if (music_layers_active < music_layers_total):
+			music_layers_active += 1
+		music_set()
+			
+	if Input.is_action_just_pressed('music_unbuild'):
+		if (music_layers_active > 1):
+			music_layers_active -= 1
+		music_set()
 		
 	# Movement
 	velocity = Vector2()
@@ -105,6 +119,22 @@ func leap_of_faith():
 	#print(str(new_x) + ", " + str(new_y))
 		
 	# Move the player to the new location in the center of the selected tile
-	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)
-	                
+	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)	    
+	
+	pass
+	
+# Turn background music layers on/off based on how many layers should be active
+func music_set():
+	print("Layers: " + str(music_layers_total) + " Active: " + str(music_layers_active))
+	
+	for layer in range(1, music_layers_active + 1):
+		print("Play layer " + str(layer))
+		var audiostream = get_node("../BGM" + str(layer))
+		audiostream.volume_db = -30;
+		
+	for layer in range(music_layers_active + 1, music_layers_total + 1):
+		print("Don't play layer " + str(layer))
+		var audiostream = get_node("../BGM" + str(layer))
+		audiostream.volume_db = -80;
+		
 	pass
