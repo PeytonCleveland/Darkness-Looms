@@ -1,15 +1,11 @@
 extends Node2D
 
-const MusicPlayer = preload("MusicPlayer.gd") # Relative path
-onready var music_player = MusicPlayer.new()
-
-export (PackedScene) var Mob
+export (PackedScene) var Mob = preload("res://Mob.tscn")
 var score
 
 func _ready():
 	randomize()
 	$MobTimer.start()
-	music_player._ready()
 	
 func _on_MobTimer_timeout():
 	# Choose a random location on Path2D.

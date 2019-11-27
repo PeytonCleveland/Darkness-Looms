@@ -5,7 +5,10 @@ signal dead
 
 export (int) var speed
 export (int) var health
+export (float) var max_light_energy = 8
+export (float) var min_light_energy = 1.5
 
+var score = 0
 var velocity = Vector2()
 var multiplier = 1.0
 var normalizer = 5
@@ -14,17 +17,15 @@ var can_shoot = true
 var can_sprint = true
 var alive = true
 var light = null
-var orig_light_energy = 0
 var rng = RandomNumberGenerator.new()
 var slomo = false
 var slomo_spacer = 0
 
+const FIRE_BULLET = preload("res://FireBullet.tscn")
 
 func _ready():
 	# Grab light info for future use
 	light = get_node("Light2D")
-	#light.energy = ((music_player.music_layers_active - 1) * 3) + 1
-	orig_light_energy = light.energy
 
 	# Initialize random number generator
 	rng.randomize()
@@ -41,9 +42,14 @@ func control(delta):
 		else:
 			Engine.time_scale = 1
 			slomo = false
+			
 	# Leap of faith
 	if Input.is_action_just_pressed('teleport'):
 		leap_of_faith()
+		
+	# Fire!
+	if Input.is_action_just_pressed('fire'):
+		fire()
 		
 	# Movement
 	velocity = Vector2()
@@ -54,21 +60,34 @@ func control(delta):
 			sprint_val -= 1
 	else :
 		sprint_val += 1
+	
+	var idle = true
+	
 	if Input.is_action_pressed('ui_right'):
 		velocity.x += 1
 		$AnimatedSprite.play('run')
-	elif Input.is_action_pressed('ui_left'):
+		idle = false
+	
+	if Input.is_action_pressed('ui_left'):
 		velocity.x -= 1
 		$AnimatedSprite.play('run_left')
-	elif Input.is_action_pressed('ui_down'):
+		idle = false
+	
+	if Input.is_action_pressed('ui_down'):
 		velocity.y += 1
 		$AnimatedSprite.play('run_down')
-	elif Input.is_action_pressed('ui_up'):
+		idle = false
+	
+	if Input.is_action_pressed('ui_up'):
 		velocity.y -= 1
 		$AnimatedSprite.play('run')
-	else:
+		idle = false
+
+	if (idle):
 		$AnimatedSprite.play('idle')
+		
 	velocity = velocity.normalized() * speed * multiplier
+
 	if (sprint_val == 0):
 		can_sprint = false
 	else:
@@ -80,14 +99,27 @@ func _physics_process(delta):
 	# Make the light flicker like a flame... sort of
 		light.offset = Vector2(rng.randf_range(-5, 5), rng.randf_range(-5, 5))
 		light.texture_scale = rng.randf_range(1.2, 1.3)
-		#light.energy = orig_light_energy + rng.randf_range(-(orig_light_energy / 4), orig_light_energy / 4)
 		normalizer = 7
 	#light.color = Color(rng.randf(), rng.randf(), rng.randf()) # psychadelic
 
-	if not alive:
+	# Update GUI & music
+	$Camera2D/VBoxContainer/Score.text = "Score: " + str(score)
+	$Camera2D/VBoxContainer/Health.text = "Health: " + str(health)
+	$"/root/MusicPlayer".set_hero_health(health)
+	
+	# Update light level based on health
+	light.energy = min_light_energy + ((max_light_energy - min_light_energy) * (float(health) / 100.0))
+	
+	# Dead? Stop moving.
+	if (health <= 0):
+		alive = false
+		$Camera2D/VBoxContainer/Health.text = "Health: ded"
 		return
 
+	# Check for player's inputs and do stuff
 	control(delta)
+
+	# Reposition character
 	move_and_slide(velocity)
 
 # Move the player to a random but valid spot on the map.
@@ -123,6 +155,25 @@ func leap_of_faith():
 	# Move the player to the new location in the center of the selected tile
 	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)	    
 	
+	# Penalty for using leap
+	# TODO: make not hard-coded
+	health -= 10
+	
 	pass
 	
+# Shoot fire. Aiming = player's direction of travel. If not moving, don't fire. Where would it go?
+func fire():
+	# If player can shoot and IS moving, fire.
+	if (can_shoot && (velocity.length() > 0)):
 
+		# Penalty for firing
+		# TODO: make not hard-coded
+		health -= 2
+
+		# Make a new bullet instance and send it off in the player's direction of travel
+		# (i.e. aiming = direction moving)
+		var fire_bullet = FIRE_BULLET.instance()
+		get_parent().add_child(fire_bullet)
+		fire_bullet.start(position, velocity)
+		
+	pass
