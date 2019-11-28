@@ -20,13 +20,22 @@ var light = null
 var rng = RandomNumberGenerator.new()
 var slomo = false
 var slomo_spacer = 0
+var teleport_anim_timer = Timer.new()
+
 
 const FIRE_BULLET = preload("res://FireBullet.tscn")
 
 func _ready():
 	# Grab light info for future use
 	light = get_node("Light2D")
-
+	
+	# Set up timer for Teleport animation
+	teleport_anim_timer.set_wait_time(1)
+	teleport_anim_timer.set_one_shot(false)
+	self.add_child(teleport_anim_timer)
+	teleport_anim_timer.start()
+	$AnimatedSprite/TeleportAnimationOverlay.visible = false
+		
 	# Initialize random number generator
 	rng.randomize()
 	
@@ -125,6 +134,10 @@ func _physics_process(delta):
 # Move the player to a random but valid spot on the map.
 func leap_of_faith():
 	
+	$AnimatedSprite/TeleportAnimationOverlay.play('teleport_part1_overlay')
+	$AnimatedSprite/TeleportAnimationOverlay.visible = true
+	$TeleportSound.play()
+
 	# Find the extents of the tilemap
 	var tilemap = get_node("../TileMap")
 	var min_x = tilemap.get_used_rect().position.x
@@ -152,13 +165,23 @@ func leap_of_faith():
 		
 	#print_debug(str(new_x) + ", " + str(new_y))
 		
+	
+	yield(teleport_anim_timer, "timeout")
+
 	# Move the player to the new location in the center of the selected tile
 	position = Vector2(new_x * tilemap.cell_size.x, new_y * tilemap.cell_size.y)	    
 	
+	$AnimatedSprite/TeleportAnimationOverlay.play('teleport_part2_overlay')
+
 	# Penalty for using leap
 	# TODO: make not hard-coded
 	health -= 10
+
+	yield(teleport_anim_timer, "timeout")
 	
+	$AnimatedSprite/TeleportAnimationOverlay.stop()
+	$AnimatedSprite/TeleportAnimationOverlay.visible = false
+
 	pass
 	
 # Shoot fire. Aiming = player's direction of travel. If not moving, don't fire. Where would it go?
