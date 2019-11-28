@@ -1,8 +1,9 @@
 extends Node
 
 export (int) var music_layers_total = 6
-var music_layers_active = 2
+var music_layers_active = 6
 var music_stream_players = []
+var last_health = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,7 +46,7 @@ func music_layers_volume_set():
 	
 	for bgm_layer in range(0, music_layers_active):
 		#print_debug("Hear layer " + str(bgm_layer))
-		music_stream_players[bgm_layer].volume_db = -10;
+		music_stream_players[bgm_layer].volume_db = -15;
 		
 	for bgm_layer in range(music_layers_active, music_layers_total):
 		#print_debug("Don't hear layer " + str(bgm_layer))
@@ -59,15 +60,11 @@ func _process(delta):
 	if Input.is_action_just_pressed('music_build'):
 		if (music_layers_active < music_layers_total):
 			music_layers_active += 1
-		#light.energy = ((music_layers_active - 1) * 3) + 1
-		#orig_light_energy = light.energy
 		music_layers_volume_set()
 			
 	if Input.is_action_just_pressed('music_unbuild'):
 		if (music_layers_active > 1):
 			music_layers_active -= 1
-		#light.energy = ((music_layers_active - 1) * 3) + 1
-		#orig_light_energy = light.energy
 		music_layers_volume_set()
 		
 	# Music stopped? Restart it.
@@ -75,3 +72,20 @@ func _process(delta):
 		music_layers_play()
 		
 	pass
+
+# Match the music layers to the hero's health.
+func set_hero_health(health):
+	if (health == last_health):
+		return
+	last_health = health
+	if (health <= 0):
+		music_layers_active = 0
+	else:
+		music_layers_active = int(ceil((float(health) / 100.0) * float(music_layers_total)))
+		if (music_layers_active < 1):
+			music_layers_active = 1
+		#print_debug("Health music layers: " + str((float(health) / 100.0) * float(music_layers_total)))
+		#print_debug("Health music layers round: " + str(ceil((float(health) / 100.0) * float(music_layers_total))))
+	music_layers_volume_set()
+	pass
+	
