@@ -74,10 +74,15 @@ func control(delta):
 	
 	if Input.is_action_pressed('ui_right'):
 		velocity.x += 1
+<<<<<<< Updated upstream
 		$AnimatedSprite.play('run')
 		idle = false
 	
 	if Input.is_action_pressed('ui_left'):
+=======
+		$AnimationPlayer.play('run')
+	elif Input.is_action_pressed('ui_left'):
+>>>>>>> Stashed changes
 		velocity.x -= 1
 		$AnimatedSprite.play('run_left')
 		idle = false
@@ -90,11 +95,16 @@ func control(delta):
 	if Input.is_action_pressed('ui_up'):
 		velocity.y -= 1
 		$AnimatedSprite.play('run')
+<<<<<<< Updated upstream
 		idle = false
 
 	if (idle):
 		$AnimatedSprite.play('idle')
 		
+=======
+	else:
+		$AnimationPlayer.play('idle')
+>>>>>>> Stashed changes
 	velocity = velocity.normalized() * speed * multiplier
 
 	if (sprint_val == 0):

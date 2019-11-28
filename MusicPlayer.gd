@@ -1,7 +1,11 @@
 extends Node
 
 export (int) var music_layers_total = 6
+<<<<<<< Updated upstream
 var music_layers_active = 6
+=======
+var music_layers_active = 1
+>>>>>>> Stashed changes
 var music_stream_players = []
 var last_health = 0
 
@@ -46,7 +50,23 @@ func music_layers_volume_set():
 	
 	for bgm_layer in range(0, music_layers_active):
 		#print_debug("Hear layer " + str(bgm_layer))
+<<<<<<< Updated upstream
 		music_stream_players[bgm_layer].volume_db = -15;
+=======
+		#normalize audio, make drums stand out, make flute soumd distant
+		if (bgm_layer == 1):
+			music_stream_players[bgm_layer].volume_db = -36
+		elif (bgm_layer == 2):
+			music_stream_players[bgm_layer].volume_db = -30
+		elif (bgm_layer == 3):
+			music_stream_players[bgm_layer].volume_db = -36
+		elif (bgm_layer == 4):
+			music_stream_players[bgm_layer].volume_db = -29
+		elif (bgm_layer == 5):
+			music_stream_players[bgm_layer].volume_db = -44
+		else:
+			music_stream_players[bgm_layer].volume_db = -20;
+>>>>>>> Stashed changes
 		
 	for bgm_layer in range(music_layers_active, music_layers_total):
 		#print_debug("Don't hear layer " + str(bgm_layer))
